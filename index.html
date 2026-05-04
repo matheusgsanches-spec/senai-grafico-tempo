@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics Pro - Performance Academy</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container py-5">
+        <header class="text-center mb-5">
+            <h1 class="display-4 fw-bold text-white">Performance Academy</h1>
+            <p class="lead text-white-50">Análise de desempenho e evolução semanal</p>
+        </header>
+
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <button id="btn-login-admin" class="btn btn-glass-outline w-100 mb-3 text-white">Acesso Administrativo</button>
+                
+                <div id="painel-admin" class="glass-card p-4 d-none mb-4">
+                    <h3 class="h5 mb-4 text-white">Gestão de Alunos</h3>
+                    <form id="form-admin">
+                        <input type="text" id="nome" class="form-control glass-input mb-2" placeholder="Nome do Aluno" required>
+                        <input type="url" id="foto" class="form-control glass-input mb-2" placeholder="URL da Foto" required>
+                        <input type="number" id="tempo-manual" class="form-control glass-input mb-3" placeholder="Tempo Atual (min)">
+                        <button type="submit" class="btn btn-primary-gradient w-100">Atualizar Ranking</button>
+                        <button type="button" id="btn-logout" class="btn btn-link btn-sm text-white-50 mt-2 w-100 text-decoration-none">Sair do Painel</button>
+                    </form>
+                    <div id="admin-list-container" class="mt-4"></div>
+                </div>
+
+                <div id="winner-card" class="glass-card p-4 text-center border-gold">
+                    <span class="badge bg-warning text-dark mb-2">LÍDER ATUAL</span>
+                    <div class="mb-3">
+                        <img id="winner-img" src="" class="rounded-circle border border-3 border-warning shadow-lg winner-avatar" alt="Vencedor">
+                    </div>
+                    <h4 id="winner-name" class="mb-1 text-white">---</h4>
+                    <p id="winner-time" class="h3 text-warning fw-bold mb-1">0 min</p>
+                    <small id="winner-date" class="text-white-50 d-block mb-2"></small>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="glass-card p-4 h-100">
+                    <h3 class="h5 mb-4 text-white">Ranking e Comparativo Semanal</h3>
+                    <div class="chart-container" style="position: relative; height: 450px;">
+                        <canvas id="meuGrafico"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script src="firebaseConfig.js"></script>
+    <script src="model.js"></script>
+    <script src="view.js"></script>
+    <script src="controller.js"></script>
+</body>
+</html>

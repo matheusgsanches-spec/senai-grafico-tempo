@@ -1,0 +1,49 @@
+:root {
+    --glass: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --primary: #6366f1;
+    --accent: #a855f7;
+}
+
+body {
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+    color: white;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    min-height: 100vh;
+}
+
+.glass-card {
+    background: var(--glass);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+}
+
+.glass-card-sm {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 10px;
+    margin-bottom: 8px;
+}
+
+.border-gold { border: 1px solid rgba(255, 193, 7, 0.4); }
+
+.glass-input {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    color: white;
+    border-radius: 12px;
+}
+
+.btn-primary-gradient {
+    background: linear-gradient(to right, var(--primary), var(--accent));
+    border: none; color: white; border-radius: 12px; font-weight: 600;
+}
+
+.btn-glass-outline {
+    border: 1px solid var(--glass-border);
+    color: white; border-radius: 12px;
+}
+
+#winner-img { width: 80px; height: 80px; object-fit: cover; }
