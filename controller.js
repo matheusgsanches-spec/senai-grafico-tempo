@@ -1,22 +1,17 @@
-// controller.js
 const SENHA_MESTRA = "1234";
 const btnLogin = document.getElementById('btn-login-admin');
 const painelAdmin = document.getElementById('painel-admin');
 const btnLogout = document.getElementById('btn-logout');
 
-// Renderiza a lista simplificada dentro do painel admin
 function renderizarListaAdmin(dados) {
     const listContainer = document.getElementById('admin-list-container');
     if (!listContainer) return;
-
     listContainer.innerHTML = '<h4 class="h6 mb-3 text-uppercase opacity-50 small fw-bold text-white">Gestão de Alunos</h4>';
 
     Object.entries(dados).forEach(([id, aluno]) => {
         const div = document.createElement('div');
-        div.className = 'd-flex justify-content-between align-items-center mb-2 p-2';
+        div.className = 'd-flex justify-content-between align-items-center mb-2 p-2 rounded';
         div.style.background = 'rgba(255,255,255,0.05)';
-        div.style.borderRadius = '8px';
-        
         div.innerHTML = `
             <div class="d-flex align-items-center">
                 <img src="${aluno.foto}" width="25" height="25" class="rounded-circle me-2" style="object-fit:cover">
@@ -31,9 +26,7 @@ function renderizarListaAdmin(dados) {
     });
 }
 
-// Funções globais vinculadas ao Model
 window.excluirAluno = (id) => AlunoModel.deleteAluno(id);
-
 window.preencherFormulario = (nome, foto, tempo) => {
     document.getElementById('nome').value = nome;
     document.getElementById('foto').value = foto;
@@ -41,13 +34,11 @@ window.preencherFormulario = (nome, foto, tempo) => {
     window.scrollTo(0, 0);
 };
 
-// Monitoramento para o admin
 database.ref('usuarios').on('value', (snapshot) => {
     const dados = snapshot.val();
     if (dados) renderizarListaAdmin(dados);
 });
 
-// Eventos de Login/Logout
 btnLogin.onclick = () => {
     const s = prompt("Senha:");
     if(s === SENHA_MESTRA) {
@@ -61,13 +52,11 @@ btnLogout.onclick = () => {
     btnLogin.classList.remove('d-none');
 };
 
-// Submissão do formulário usando o Model
 document.getElementById('form-admin').onsubmit = (e) => {
     e.preventDefault();
     const nome = document.getElementById('nome').value;
     const foto = document.getElementById('foto').value;
     const tempo = document.getElementById('tempo-manual').value;
-
     AlunoModel.updateAluno(nome, foto, tempo).then(() => {
         alert("Ranking atualizado!");
         e.target.reset();

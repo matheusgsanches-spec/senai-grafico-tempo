@@ -11,7 +11,7 @@ const AlunoModel = {
                 id,
                 ...val,
                 tendencia: val.tempoAnterior !== undefined ? (val.tempoLogado - val.tempoAnterior) : 0
-            })).sort((a, b) => b.tempoLogado - a.tempoLogado);
+            })).sort((a, b) => a.tempoLogado - b.tempoLogado); // Mudado de (b-a) para (a-b)
             callback(lista);
         });
     },
@@ -19,7 +19,7 @@ const AlunoModel = {
     updateAluno: (nome, foto, tempo) => {
         const id = nome.toLowerCase().replace(/\s+/g, '-');
         const hoje = new Date().toLocaleDateString('pt-BR');
-        
+
         // Busca o dado atual para salvar como "anterior" antes de atualizar
         return database.ref('usuarios/' + id).once('value').then(snapshot => {
             const dadosAntigos = snapshot.val();
@@ -36,7 +36,7 @@ const AlunoModel = {
     },
 
     deleteAluno: (id) => {
-        if(confirm("Tem a certeza que deseja excluir este aluno?")) {
+        if (confirm("Tem a certeza que deseja excluir este aluno?")) {
             return database.ref('usuarios/' + id).remove();
         }
     }

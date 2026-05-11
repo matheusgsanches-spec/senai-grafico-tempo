@@ -9,17 +9,17 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container py-5">
-        <header class="text-center mb-5">
-            <h1 class="display-4 fw-bold text-white">Performance Academy</h1>
-            <p class="lead text-white-50">Análise de desempenho e evolução semanal</p>
+    <div class="container-fluid container-lg py-4 py-md-5">
+        <header class="text-center mb-4 mb-md-5">
+            <h1 class="display-5 fw-bold text-white">Performance Sanches</h1>
+            <p class="lead text-white-50">Ranking de Eficiência: Menos tempo é melhor</p>
         </header>
 
         <div class="row g-4">
-            <div class="col-lg-4">
+            <div class="col-12 col-lg-4 order-2 order-lg-1">
                 <button id="btn-login-admin" class="btn btn-glass-outline w-100 mb-3 text-white">Acesso Administrativo</button>
                 
-                <div id="painel-admin" class="glass-card p-4 d-none mb-4">
+                <div id="painel-admin" class="glass-card p-3 p-md-4 d-none mb-4">
                     <h3 class="h5 mb-4 text-white">Gestão de Alunos</h3>
                     <form id="form-admin">
                         <input type="text" id="nome" class="form-control glass-input mb-2" placeholder="Nome do Aluno" required>
@@ -28,11 +28,11 @@
                         <button type="submit" class="btn btn-primary-gradient w-100">Atualizar Ranking</button>
                         <button type="button" id="btn-logout" class="btn btn-link btn-sm text-white-50 mt-2 w-100 text-decoration-none">Sair do Painel</button>
                     </form>
-                    <div id="admin-list-container" class="mt-4"></div>
+                    <div id="admin-list-container" class="mt-4 admin-scroll"></div>
                 </div>
 
-                <div id="winner-card" class="glass-card p-4 text-center border-gold">
-                    <span class="badge bg-warning text-dark mb-2">LÍDER ATUAL</span>
+                <div id="winner-card" class="glass-card p-4 text-center border-gold mb-4">
+                    <span class="badge bg-warning text-dark mb-2">RECORDE DA SEMANA</span>
                     <div class="mb-3">
                         <img id="winner-img" src="" class="rounded-circle border border-3 border-warning shadow-lg winner-avatar" alt="Vencedor">
                     </div>
@@ -40,12 +40,22 @@
                     <p id="winner-time" class="h3 text-warning fw-bold mb-1">0 min</p>
                     <small id="winner-date" class="text-white-50 d-block mb-2"></small>
                 </div>
+
+                <div class="glass-card p-3 mb-3 border-success">
+                    <h6 class="text-success fw-bold small mb-3">🏆 TOP 3 - MAIS RÁPIDOS</h6>
+                    <div id="top-melhores"></div>
+                </div>
+
+                <div class="glass-card p-3 border-danger">
+                    <h6 class="text-danger fw-bold small mb-3">⚠️ TOP 3 - MAIORES TEMPOS</h6>
+                    <div id="top-piores"></div>
+                </div>
             </div>
 
-            <div class="col-lg-8">
-                <div class="glass-card p-4 h-100">
-                    <h3 class="h5 mb-4 text-white">Ranking e Comparativo Semanal</h3>
-                    <div class="chart-container" style="position: relative; height: 450px;">
+            <div class="col-12 col-lg-8 order-1 order-lg-2">
+                <div class="glass-card p-3 p-md-4 h-100">
+                    <h3 class="h5 mb-4 text-white">Evolução do Ranking</h3>
+                    <div class="chart-wrapper">
                         <canvas id="meuGrafico"></canvas>
                     </div>
                 </div>
@@ -56,7 +66,6 @@
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
     <script src="firebaseConfig.js"></script>
     <script src="model.js"></script>
     <script src="view.js"></script>
