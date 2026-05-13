@@ -1,42 +1,31 @@
-// model.js
 const AlunoModel = {
-    onDataChange: (callback) => {
-        database.ref('usuarios').on('value', (snapshot) => {
-            const dados = snapshot.val();
-            if (!dados) {
-                callback([]);
-                return;
-            }
-            const lista = Object.entries(dados).map(([id, val]) => ({
-                id,
-                ...val,
-                tendencia: val.tempoAnterior !== undefined ? (val.tempoLogado - val.tempoAnterior) : 0
-            })).sort((a, b) => a.tempoLogado - b.tempoLogado); // Mudado de (b-a) para (a-b)
-            callback(lista);
-        });
-    },
-
     updateAluno: (nome, foto, tempo) => {
         const id = nome.toLowerCase().replace(/\s+/g, '-');
-        const hoje = new Date().toLocaleDateString('pt-BR');
+        const hoje = new Date().toISOString().split('T')[0];
 
-        // Busca o dado atual para salvar como "anterior" antes de atualizar
         return database.ref('usuarios/' + id).once('value').then(snapshot => {
-            const dadosAntigos = snapshot.val();
-            const tempoAtualVal = dadosAntigos ? dadosAntigos.tempoLogado : 0;
+            const dadosAtuais = snapshot.val();
+            const tempoAnterior = dadosAtuais ? (dadosAtuais.tempoLogado || 0) : 0;
 
-            return database.ref('usuarios/' + id).update({
+            const payload = {
                 nome: nome,
                 foto: foto,
                 tempoLogado: tempo ? parseInt(tempo) : 0,
-                tempoAnterior: tempoAtualVal, // O tempo de hoje vira o "anterior" da próxima vez
+                tempoAnterior: tempoAnterior,
                 ultimaAtualizacao: hoje
+            };
+
+            const updatePrincipal = database.ref('usuarios/' + id).update(payload);
+            const updateHistorico = database.ref(`usuarios/${id}/historico/${hoje}`).set({
+                tempo: tempo ? parseInt(tempo) : 0
             });
+
+            return Promise.all([updatePrincipal, updateHistorico]);
         });
     },
 
     deleteAluno: (id) => {
-        if (confirm("Tem a certeza que deseja excluir este aluno?")) {
+        if (confirm("Deseja apagar este aluno e todo o seu histórico?")) {
             return database.ref('usuarios/' + id).remove();
         }
     }
